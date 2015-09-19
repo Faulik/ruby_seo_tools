@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title Seo tools
+    link rel='icon' type='image/png' href='/favicon.ico'
+    link rel='stylesheet' type='text/css' href='/styles/styles.css'
+    link rel='stylesheet' type='text/css' href='/styles/bootstrap.min.css'
+    link rel='stylesheet' type='text/css' href='/styles/bootstrap-theme.min.css'
+
+  body
+    .container-fluid
+      .row
+        h1 Enter url:
+        form  action='/links' method='POST'
+          input type='text' name='url'
+          input type='submit' value='Run'
+      .row
+        table.table.table-hover#sort
+          thead
+            tr
+              th Site url
+              th Created at
+              th Actions
+
+
+    script src='/js/tablesort.min.js'
+    script src='/js/tablesort.date.js'
+    script src='/js/code.js'

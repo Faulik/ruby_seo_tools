@@ -1,0 +1,19 @@
+= Seo tools
+
+Provides ability to scan selected pages for headers and all the links on page. Generating static html reports and serves them.
+
+== Install
+  
+  bundle install --path vendor/bundle
+
+== Run
+  
+  rackup config.ru
+
+  bundle exec thin --rackup config.ru start
+
+== Test
+
+  bundle exec rspec
+
+Released under the MIT license
