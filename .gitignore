@@ -22,7 +22,6 @@ doc/
 vendor/
 dump.rdb
 
-public/reports/*
 coverage/
 
 seo_tools.sublime-workspace
