@@ -2,6 +2,10 @@
 
 Provides ability to scan selected pages for headers and all the links on page. Generating static html reports and serves them.
 
+### Heroku link
+
+http://rubyseoapp.herokuapp.com/
+
 ### Example
 
 ![Index image](https://raw.githubusercontent.com/Faulik/ruby_seo_tools/master/public/img/index_page.png)
