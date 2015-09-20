@@ -8,11 +8,13 @@ require 'geoip'
 module SeoApp
   #
   class LinkParser
-    attr_reader :links, :headers, :time
+    attr_reader :links, :headers, :time, :geo, :url
 
     def initialize(url)
       @url = URI.parse(url)
       @links = []
+      @headers = []
+      @geo = {}
       @time = Time.now.strftime('%Y.%d.%m_%H-%M-%S')
     end
 
@@ -30,8 +32,7 @@ module SeoApp
     def procces_response(response)
       @headers = response.headers
       gather_links response.body
-      @geo = GeoIP.new(SeoApp.root_path.join('db/GeoLiteCity.dat'))
-                  .city(@url.host.to_s)
+      @geo = retrieve_geo_params
 
       save_report
     end
@@ -51,7 +52,7 @@ module SeoApp
       _file_path = SeoApp.root_path.join('public/reports', generate_file_name)
 
       File.open(_file_path, 'w') do |f|
-        f << generate_report
+        f.write(generate_report)
       end
     end
 
@@ -61,6 +62,10 @@ module SeoApp
 
     def generate_report
       Slim::Template.new('views/reports.slim').render(self)
+    end
+
+    def retrieve_geo_params
+      GeoIP.new(SeoApp.root_path.join('db/GeoLiteCity.dat')).city(@url.host.to_s)
     end
 
     def check_url

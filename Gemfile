@@ -16,6 +16,7 @@ gem 'geoip', '~> 1.6.1'
 group :test do
   gem 'rspec', '~> 3.3.0'
   gem 'rack-test', '~> 0.6.3'
-  gem 'fuubar', '~> 2.0.0'
+  gem 'fakeweb', '~> 1.3.0'
+  # gem 'fakefs', '~> 0.6.7'
   gem 'simplecov', require: false
 end

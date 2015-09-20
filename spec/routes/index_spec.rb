@@ -21,13 +21,24 @@ describe SeoApp::Application do
 
   context 'links route' do
     it 'should redirect to /' do
-      allow(SeoApp::LinkParser).to receive(:save_report) { puts 'lolo' }
+      allow_any_instance_of(SeoApp::LinkParser).to receive(:parse!) { true }
 
       post '/links', URI.encode_www_form(url: 'http://foo.com')
 
       expect(last_response).to be_redirect
       follow_redirect!
       expect(last_request.path).to eq('/')
+    end
+
+    it 'should redirect to /?error=NonValidURL' do
+      allow_any_instance_of(SeoApp::LinkParser).to receive(:parse!) { false }
+
+      post '/links', URI.encode_www_form(url: 'bad_url')
+
+      expect(last_response).to be_redirect
+      follow_redirect!
+      expect(last_request.params['error']).to eq('NonValidURL')
+      expect(last_response.body).to include 'error with message: NonValidURL'
     end
   end
 end

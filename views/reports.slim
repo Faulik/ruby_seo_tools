@@ -56,13 +56,12 @@ html
             tbody 
               tr
                 td IP
-                td = @geo.ip
+                td = @geo['ip'] || 'Not found'
               tr
                 td Country
-                td = @geo.country_name
+                td = @geo['country_name'] || 'Not found'
 
 
 
     script src='/js/tablesort.min.js'
-    script src='/js/tablesort.date.js'
     script src='/js/code.js'
