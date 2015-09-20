@@ -11,9 +11,9 @@ html
     .container-fluid
       .row
         .col-xs-10.col-xs-offset-1
-          h1 Report for 
-            a href="#{@url}"
-          p Date: #{@time.gsub('_', ' ')}
+          h1 Report for
+            <a href="#{@url}"> #{@url}</a>
+          p Date: #{@time.tr('_', ' ')}
       br
       .row
         .col-xs-10.col-xs-offset-1
