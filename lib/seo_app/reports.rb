@@ -5,10 +5,10 @@ module SeoApp
     _reports = []
 
     Dir.foreach(path) do |file|
-      next if file == '.' || file == '..'
+      next if file == '.' || file == '..' || file == '.gitignore'
       parts = file.gsub('.html', '').split('__')
       _reports << { site_url: parts[0],
-                    date: parts[1].gsub('_', ' '), 
+                    date: parts[1].gsub('_', ' '),
                     file_name: file }
     end
     _reports
