@@ -10,7 +10,8 @@ gem 'sinatra-param', '~> 1.4.0', require: 'sinatra/param'
 gem 'slim', '~> 3.0.6'
 
 gem 'httparty', '~> 0.13.5'
-gem 'nokogiri', '~> 1.6.6.2'
+gem 'nokogiri', '~> 1.6.7.rc3'
+gem 'geoip', '~> 1.6.1'
 
 group :test do
   gem 'rspec', '~> 3.3.0'
