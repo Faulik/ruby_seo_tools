@@ -10,7 +10,7 @@ Provides ability to scan selected pages for headers and all the links on page. G
   
   rackup config.ru
 
-  bundle exec thin --rackup config.ru start
+  bundle exec rackup config.ru
 
 == Test
 
