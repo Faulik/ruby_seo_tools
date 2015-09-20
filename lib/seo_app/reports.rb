@@ -7,7 +7,6 @@ module SeoApp
     Dir.foreach(path) do |file|
       next if file == '.' || file == '..'
       parts = file.gsub('.html', '').split('__')
-      puts file
       _reports << { site_url: parts[0],
                     date: parts[1].gsub('_', ' '), 
                     file_name: file }

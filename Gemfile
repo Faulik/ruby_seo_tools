@@ -17,4 +17,5 @@ group :test do
   gem 'rspec', '~> 3.3.0'
   gem 'rack-test', '~> 0.6.3'
   gem 'fuubar', '~> 2.0.0'
+  gem 'simplecov', require: false
 end

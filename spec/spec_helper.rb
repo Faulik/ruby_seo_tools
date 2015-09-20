@@ -1,7 +1,10 @@
 # Configure Rack Envinronment
 ENV['RACK_ENV'] = 'test'
 
-require File.expand_path('../../config/environment',  __FILE__)
+require 'simplecov'
+SimpleCov.start
+
+require File.expand_path('../../config/environment', __FILE__)
 
 RSpec.configure do |config|
   # Remove this line if you don't want RSpec's should and should_not
