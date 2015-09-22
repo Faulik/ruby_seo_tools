@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'seo_app'
+
+Seo_app = SeoApp::LinkParser
+Seo_app.say_hello

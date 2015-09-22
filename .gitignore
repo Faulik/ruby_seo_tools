@@ -23,5 +23,6 @@ vendor/
 dump.rdb
 
 coverage/
+*.gem
 
 seo_tools.sublime-workspace

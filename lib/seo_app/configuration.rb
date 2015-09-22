@@ -17,17 +17,17 @@ module SeoApp
     attr_accessor :reports_folder
 
     # Db configuration
-    attr_accessor :host
-    attr_accessor :port
-    attr_accessor :database_name
-    attr_accessor :user
-    attr_accessor :password
+    attr_accessor :db_host
+    attr_accessor :db_port
+    attr_accessor :db_name
+    attr_accessor :db_user
+    attr_accessor :db_password
 
     def initialize
       @reports_folder = '/public/reports/'
     end
 
-    def database=(_type)
+    def database_type=(_type)
       case _type
       when 'postgres'
         SeoApp::Storage.database = SeoApp::PgStorage.new

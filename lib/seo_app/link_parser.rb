@@ -65,5 +65,9 @@ module SeoApp
       @url = !@url.scheme ? URI.parse('http://' + @url.to_s) : @url
       @url.is_a?(URI::HTTP) ? true : false
     end
+
+    def self.say_hello
+      puts 'Hello'
+    end
   end
 end
