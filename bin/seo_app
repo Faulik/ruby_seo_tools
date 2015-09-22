@@ -1,6 +1,39 @@
 #!/usr/bin/env ruby
-
+require 'thor'
 require 'seo_app'
 
-Seo_app = SeoApp::LinkParser
-Seo_app.say_hello
+SeoApp.configure do |config|
+  config.database_type = 'files'
+end
+
+class Seo_app < Thor
+  desc 'parse url', 'Creates report html in current directory'
+  method_option required: true
+  def parse(_url)
+    puts "Parsing from url: #{_url}"
+    # SeoApp::Storage.database.reports_path = Dir.pwd
+    SeoApp::LinkParser.new(_url).parse!
+    puts "Done!"
+  end
+
+  desc 'list [options]', ' get all reports in current folder or specific path'
+  method_option :path, :aliases => '-p', :desc => 'Supply with path to look for'
+  def list() 
+    _path = options[:path] ? File.join(Dir.pwd, options[:path]) : Dir.pwd
+
+    puts "Getting all reports from #{_path}"
+    puts SeoApp::Storage.database
+    puts SeoApp::Storage.database.methods
+    puts SeoApp::Storage.database.instance_variables
+    puts SeoApp::Storage.database.reports_path
+
+    SeoApp::Storage.database.reports_path = _path
+    puts 'Site url -- date of parsing -- key'
+    SeoApp::Storage.all_reports.each do |report|
+      puts "#{report[:site_url]} -- #{report[:date]} -- #{report[:key]}"
+    end
+    puts "That's all"
+  end
+end
+
+Seo_app.start

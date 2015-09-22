@@ -1,6 +1,8 @@
 module SeoApp
   # Base storage interface
   class FileStorage
+    attr_accessor :reports_path
+
     def initialize
       _path = SeoApp.configuration.reports_folder || ''
       # BUG! some wild problem with normal SeoApp.root_path.join(_path)
@@ -11,7 +13,7 @@ module SeoApp
       _reports = []
 
       Dir.foreach(@reports_path) do |file|
-        next if file == '.' || file == '..' || file == '.gitignore'
+        next unless File.extname(file) == '.html'
         parts = file.gsub('.html', '').split('__')
         _reports << { site_url: parts[0],
                       date: parts[1].tr('_', ' '),

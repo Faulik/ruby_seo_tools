@@ -28,12 +28,16 @@ module SeoApp
     end
 
     def database_type=(_type)
+      puts 'lollo'
       case _type
       when 'postgres'
         SeoApp::Storage.database = SeoApp::PgStorage.new
+        @database_type = 'postgres'
       when 'files'
         SeoApp::Storage.database = SeoApp::FileStorage.new
+        @database_type = 'files'
       end
+
     end
   end
 end
