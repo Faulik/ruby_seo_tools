@@ -9,3 +9,7 @@ ENV['RACK_ENV'] ||= 'development'
 Bundler.require(:default, ENV['RACK_ENV']) if defined?(Bundler)
 
 require 'seo_app'
+
+Dir["#{File.dirname(__FILE__)}/initializers/*.rb"].sort.each do |path|
+  require File.expand_path("../initializers/#{File.basename(path, '.rb')}", __FILE__)
+end

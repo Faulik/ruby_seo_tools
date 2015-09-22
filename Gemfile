@@ -5,6 +5,7 @@ gem 'rack', '~> 1.6.4'
 # gem 'rack-contrib', '~> 1.4.0'
 gem 'rake', '~> 10.4.2'
 gem 'thin', '~> 1.6.3'
+gem 'pg', '~> 0.18.3'
 
 gem 'sinatra', '~> 1.4.6'
 gem 'sinatra-param', '~> 1.4.0', require: 'sinatra/param'

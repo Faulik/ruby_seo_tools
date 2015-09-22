@@ -1,4 +1,6 @@
 require 'pathname'
+
+require 'seo_app/configuration'
 require 'seo_app/application'
 
 # Config module

@@ -26,18 +26,19 @@ module SeoApp
       rescue
         return false
       end
+
       procces_response _response
     end
 
     def procces_response(response)
       @headers = response.headers
-      gather_links response.body
       @geo = retrieve_geo_params
+      gather_links! response.body
 
-      save_report
+      SeoApp::Storage.save_report(generate_report, generate_file_name)
     end
 
-    def gather_links(body)
+    def gather_links!(body)
       ::Nokogiri::HTML(body).css('a').each do |link|
         @links << {
           name: link.text || 'None',
@@ -45,14 +46,6 @@ module SeoApp
           rel: link['rel'] || 'None',
           target: link['target'] || 'None'
         }
-      end
-    end
-
-    def save_report
-      _file_path = SeoApp.root_path.join('public/reports', generate_file_name)
-
-      File.open(_file_path, 'w') do |f|
-        f.write(generate_report)
       end
     end
 

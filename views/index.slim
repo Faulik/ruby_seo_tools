@@ -31,11 +31,11 @@ html
             rbody
               - for report in @reports.reverse
                 tr
-                  td 
+                  td
                     a href="#{report[:site_url]}" = report[:site_url]
                   td = report[:date]
-                  td 
-                    a href="/reports/#{report[:file_name]}" View
+                  td
+                    a href="/reports/#{report[:key]}" View
 
 
     script src='/js/tablesort.min.js'

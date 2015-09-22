@@ -1,8 +1,8 @@
 require 'sinatra'
 require 'sinatra/param'
 
-require_relative 'link_parser.rb'
-require_relative 'reports'
+require_relative 'link_parser'
+require_relative 'storages/storage'
 
 module SeoApp
   # Main routes
@@ -23,18 +23,24 @@ module SeoApp
     get '/' do
       param :error, String
 
-      @reports = SeoApp.check_reports(SeoApp.root_path.join('public/reports/'))
+      @reports = SeoApp::Storage.all_reports
       @error = params[:error] ? params[:error] : nil
 
       slim :index
+    end
+
+    get '/reports/:key' do
+      param :key, String
+
+      SeoApp::Storage.report(params['key']) || redirect('/?error=NotFound')
     end
 
     post '/links' do
       param :url, String, required: true
 
       @link = LinkParser.new(params[:url])
-      redirect '/?error=NonValidURL' unless @link.parse!
 
+      redirect '/?error=NonValidURL' unless @link.parse!
       redirect '/'
     end
   end
