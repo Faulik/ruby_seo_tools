@@ -1,3 +1,5 @@
+require 'pathname'
+
 module SeoApp
   # Base storage interface
   class FileStorage
