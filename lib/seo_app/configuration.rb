@@ -17,6 +17,7 @@ module SeoApp
     attr_accessor :reports_folder
 
     # Db configuration
+    attr_accessor :db_url
     attr_accessor :db_host
     attr_accessor :db_port
     attr_accessor :db_name
