@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/seo_app.svg)](http://badge.fury.io/rb/seo_app)
+
 # Seo tools
 
 Provides ability to scan selected pages for headers and all the links on page. Generating static html reports and serves them.
