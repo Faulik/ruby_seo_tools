@@ -7,7 +7,7 @@ module SeoApp
   class PgStorage
     def initialize
       @table = 'html_files'
-      connect
+      SeoApp.configuration.db_url ? connect_with_url : connect_with_creds
       create_table if check_table[0]['count'] == '0'
     end
 
@@ -59,9 +59,14 @@ module SeoApp
                   );")      
     end
 
-    def connect
+    def connect_with_url
+      @conn = PG.connect(SeoApp.configuration.db_url)
+    end
+
+    def connect_with_creds
       _config = SeoApp.configuration
-      @conn =  PG.connect(host: _config.db_host, 
+
+      @conn = PG.connect(host: _config.db_host, 
                           port: _config.db_port, 
                           dbname: _config.db_name, 
                           user: _config.db_user, 
