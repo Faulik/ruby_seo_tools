@@ -8,14 +8,14 @@ require 'geoip'
 module SeoApp
   #
   class LinkParser
-    attr_reader :links, :headers, :time, :geo, :url
+    attr_reader :links, :headers, :date, :geo, :url
 
     def initialize(url)
       @url = URI.parse(url)
       @links = []
       @headers = []
       @geo = {}
-      @time = Time.now.strftime('%Y.%d.%m_%H-%M-%S')
+      @date = Time.now.strftime('%Y.%d.%m_%H-%M-%S')
     end
 
     def parse!
@@ -35,7 +35,7 @@ module SeoApp
       @geo = retrieve_geo_params
       gather_links! response.body
 
-      SeoApp::Storage.save_report(generate_report, generate_file_name)
+      SeoApp::Storage.save_report(generate_report, {url: @url, date: @date})
     end
 
     def gather_links!(body)
@@ -47,10 +47,6 @@ module SeoApp
           target: link['target'] || 'None'
         }
       end
-    end
-
-    def generate_file_name
-      "#{@url.host}__#{@time}.html"
     end
 
     def generate_report

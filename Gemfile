@@ -10,6 +10,8 @@ gem 'pg', '~> 0.18.3'
 gem 'sinatra', '~> 1.4.6'
 gem 'sinatra-param', '~> 1.4.0', require: 'sinatra/param'
 
+gem 'pry-byebug', '~> 3.2.0'
+
 # Needed for cli gem
 gem 'slim', '~> 3.0.6'
 
@@ -17,6 +19,7 @@ gem 'httparty', '~> 0.13.5'
 gem 'nokogiri', '~> 1.6.7.rc3'
 gem 'geoip', '~> 1.6.1'
 gem 'thor', '~> 0.19.1'
+
 
 group :development do
 end

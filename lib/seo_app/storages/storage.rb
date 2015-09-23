@@ -30,8 +30,8 @@ module SeoApp
       database.report(_key)
     end
 
-    def self.save_report(_data, _name)
-      database.save_report(_data, _name)
+    def self.save_report(_html, _options)
+      database.save_report(_html, _options)
     end
   end
 
@@ -41,6 +41,6 @@ module SeoApp
 
     def report(_key); end
 
-    def save_report(_data, _name); end
+    def save_report(_html, _options); end
   end
 end

@@ -32,7 +32,7 @@ module SeoApp
       when 'postgres'
         SeoApp::Storage.database = SeoApp::PgStorage.new
         @database_type = 'postgres'
-      when 'files'
+      else
         SeoApp::Storage.database = SeoApp::FileStorage.new
         @database_type = 'files'
       end
