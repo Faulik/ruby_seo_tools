@@ -1,6 +1,6 @@
 SeoApp.configure do |config|
   # Postgress config
-  env = URI.parse['DATABASE_URL']
+  env = URI.parse(ENV['DATABASE_URL'])
   config.db_host = env.host
   config.db_port = env.port
   config.db_name = env.dbname
