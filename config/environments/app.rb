@@ -6,5 +6,5 @@ SeoApp.configure do |config|
   config.db_user = 'ruby'
   config.db_password = 'noway'
 
-  config.database_type = 'postgres'
+  config.adapter = 'sequel'
 end

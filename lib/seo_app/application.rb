@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/param'
 
 require_relative 'link_parser'
-require_relative 'storages/storage'
+require_relative 'storage'
 
 module SeoApp
   # Main routes
@@ -17,6 +17,7 @@ module SeoApp
     helpers Sinatra::Param
 
     # Middleware
+    enable :sessions
     use Rack::CommonLogger
     use Rack::Reloader
 

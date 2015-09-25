@@ -9,21 +9,22 @@ SeoApp.configure do |config|
   config.database_type = 'files'
 end
 
+# Main class to serve thor
 class Seo_app < Thor
   desc 'parse url', 'Creates report html in current directory'
-  method_option :path, :aliases => '-p', :desc => 'Supply with path to look for'
+  method_option :path, aliases: '-p', desc: 'Supply with path to look for'
   def parse(_url)
     puts "Parsing from url: #{_url}"
     path_option options[:path]
     puts "Saving in #{@path}"
 
     SeoApp::LinkParser.new(_url).parse!
-    puts "Done!"
+    puts 'Done!'
   end
 
   desc 'list [options]', ' get all reports in current folder or specific path'
-  method_option :path, :aliases => '-p', :desc => 'Supply with path to look for'
-  def list() 
+  method_option :path, aliases: '-p', desc: 'Supply with path to look for'
+  def list
     path_option options[:path]
     puts "Getting all reports from #{@path}"
     puts 'Site url -- date of parsing -- key'

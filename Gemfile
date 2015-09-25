@@ -4,12 +4,17 @@ gem 'rack', '~> 1.6.4'
 # gem 'rack-contrib', '~> 1.4.0'
 gem 'rake', '~> 10.4.2'
 gem 'thin', '~> 1.6.3'
-gem 'pg', '~> 0.18.3'
 
+# Framework
 gem 'sinatra', '~> 1.4.6'
 gem 'sinatra-param', '~> 1.4.0', require: 'sinatra/param'
 
-gem 'pry-byebug', '~> 3.2.0'
+gem 'warden', '~> 1.2.3'
+
+# DB
+gem 'pg', '~> 0.18.3'
+gem 'sequel', '~> 4.26.0'
+gem 'datamapper', '~> 1.2.0'
 
 # Needed for cli gem
 gem 'slim', '~> 3.0.6'
@@ -18,6 +23,10 @@ gem 'httparty', '~> 0.13.5'
 gem 'nokogiri', '~> 1.6.7.rc3'
 gem 'geoip', '~> 1.6.1'
 gem 'thor', '~> 0.19.1'
+
+group :development do
+  gem 'pry-byebug', '~> 3.2.0'
+end
 
 group :test do
   gem 'rspec', '~> 3.3.0'

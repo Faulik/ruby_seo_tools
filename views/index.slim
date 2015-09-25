@@ -1,42 +1,28 @@
-doctype html
-html
-  head
-    title Seo tools
-    link rel='icon' type='image/png' href='/favicon.ico'
-    link rel='stylesheet' type='text/css' href='/styles/styles.css'
-    link rel='stylesheet' type='text/css' href='/styles/bootstrap.min.css'
-    link rel='stylesheet' type='text/css' href='/styles/bootstrap-theme.min.css'
-
-  body
-    - if @error
-      p.bg-danger There were error with message: #{@error}
-    .container-fluid
-      .row
-        .col-xs-10.col-xs-offset-1
-          h1.text-center Enter url:
-          form action='/links' method='POST'
-            .row
-              .col-md-11.col-xs-10
-                input.form-control type='text' name='url' required='' placeholder='http://google.com'
-              input.btn.btn-primary type='submit' value='Run'
-      br
-      .row
-        .col-xs-10.col-xs-offset-1
-          table.table.table-hover.table-bordered.sort-table
-            thead
-              tr
-                th Site url
-                th Created at
-                th Actions
-            rbody
-              - for report in @reports.reverse
-                tr
-                  td
-                    a href="#{report[:site_url]}" = report[:site_url]
-                  td = report[:date]
-                  td
-                    a href="/reports/#{report[:key]}" View
-
-
-    script src='/js/tablesort.min.js'
-    script src='/js/code.js'
+- if @error
+  p.bg-danger There were error with message: #{@error}
+.container-fluid
+  .row
+    .col-xs-10.col-xs-offset-1
+      h1.text-center Enter url:
+      form action='/links' method='POST'
+        .row
+          .col-md-11.col-xs-10
+            input.form-control type='text' name='url' required='' placeholder='http://google.com'
+          input.btn.btn-primary type='submit' value='Run'
+  br
+  .row
+    .col-xs-10.col-xs-offset-1
+      table.table.table-hover.table-bordered.sort-table
+        thead
+          tr
+            th Site url
+            th Created at
+            th Actions
+        rbody
+          - for report in @reports.reverse
+            tr
+              td
+                a href="#{report[:site_url]}" = report[:site_url]
+              td = report[:date]
+              td
+                a href="/reports/#{report[:key]}" View

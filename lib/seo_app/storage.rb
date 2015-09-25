@@ -1,5 +1,7 @@
-require_relative 'file_storage'
-require_relative 'pg_storage'
+
+Dir[File.join(File.dirname(__FILE__), 'adapters', '*.rb')].each do |file|
+  require file
+end
 
 module SeoApp
   # Storage interface

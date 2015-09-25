@@ -11,7 +11,7 @@ module SeoApp
 
   # Main confoguration class for app
   class Configuration
-    attr_reader :database
+    attr_reader :adapter
 
     # Files Storage
     attr_accessor :reports_folder
@@ -28,14 +28,20 @@ module SeoApp
       @reports_folder = '/public/reports/'
     end
 
-    def database_type=(_type)
+    def adapter=(_type)
       case _type
-      when 'postgres'
-        SeoApp::Storage.database = SeoApp::PgStorage.new
-        @database_type = 'postgres'
+      when 'puresql'
+        SeoApp::Storage.database = SeoApp::Adapters::PureSql.new
+        @adapter = 'puresql'
+      when 'sequel'
+        SeoApp::Storage.database = SeoApp::Adapters::SeqAdapter.new
+        @adapter = 'sequel'
+      when 'datamapper'
+        SeoApp::Storage.database = SeoApp::Adapters::DMAdapter.new
+        @adapter = 'datamapper'
       else
-        SeoApp::Storage.database = SeoApp::FileStorage.new
-        @database_type = 'files'
+        SeoApp::Storage.database = SeoApp::Adapters::Files.new
+        @adapter = 'files'
       end
     end
   end
