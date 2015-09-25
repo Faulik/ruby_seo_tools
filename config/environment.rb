@@ -10,8 +10,13 @@ Bundler.require(:default, ENV['RACK_ENV']) if defined?(Bundler)
 
 require 'seo_app'
 
-configure(:development) {require_relative 'environments/app'}
-configure(:heroku) {require_relative 'environments/heroku'}
+if ENV['OPENSHIFT_APP_NAME']
+  require_relative 'environments/openshift'
+elsif ENV['HEROKU']
+  require_relative 'environments/heroku'
+else
+  configure(:development) { require_relative 'environments/app' }
+end
 
 Dir["#{File.dirname(__FILE__)}/initializers/*.rb"].sort.each do |path|
   require File.expand_path("../initializers/#{File.basename(path, '.rb')}", __FILE__)

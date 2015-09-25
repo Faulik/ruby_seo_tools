@@ -32,7 +32,7 @@ module SeoApp
 
     def save_report(_html, _options)
       _name = generate_file_name(_options[:url], _options[:date])
-      
+
       File.open(@reports_path.join(_name), 'w') do |f|
         f.write(_html)
       end

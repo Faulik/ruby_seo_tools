@@ -3,6 +3,7 @@ require 'pry-byebug'
 
 module SeoApp
   attr_accessor :table
+
   # Base storage interface
   class PgStorage
     def initialize
@@ -29,13 +30,13 @@ module SeoApp
     end
 
     def save_report(_html, _options)
-      @conn.exec("INSERT INTO #{@table} 
+      @conn.exec("INSERT INTO #{@table}
                   (
                     url,
                     date,
                     html
                   ) values (
-                  '#{_options[:url].to_s}',
+                  '#{_options[:url]}',
                   '#{_options[:date]}',
                   '#{_html}'
                   )")
@@ -47,7 +48,7 @@ module SeoApp
     end
 
     def create_table
-      @conn.exec("CREATE table #{@table} 
+      @conn.exec("CREATE table #{@table}
                   (
                     url text NOT NULL,
                     date text NOT NULL,
@@ -56,7 +57,7 @@ module SeoApp
                     CONSTRAINT id PRIMARY KEY (id)
                   ) WITH (
                     OIDS=FALSE
-                  );")      
+                  );")
     end
 
     def connect_with_url
@@ -66,11 +67,11 @@ module SeoApp
     def connect_with_creds
       _config = SeoApp.configuration
 
-      @conn = PG.connect(host: _config.db_host, 
-                          port: _config.db_port, 
-                          dbname: _config.db_name, 
-                          user: _config.db_user, 
-                          password: _config.db_password)
+      @conn = PG.connect(host: _config.db_host,
+                         port: _config.db_port,
+                         dbname: _config.db_name,
+                         user: _config.db_user,
+                         password: _config.db_password)
     end
 
     def disconnect

@@ -37,7 +37,6 @@ module SeoApp
         SeoApp::Storage.database = SeoApp::FileStorage.new
         @database_type = 'files'
       end
-
     end
   end
 end

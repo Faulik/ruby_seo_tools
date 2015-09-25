@@ -1,5 +1,4 @@
 source 'http://rubygems.org'
-ruby '2.2.3'
 
 gem 'rack', '~> 1.6.4'
 # gem 'rack-contrib', '~> 1.4.0'
@@ -19,10 +18,6 @@ gem 'httparty', '~> 0.13.5'
 gem 'nokogiri', '~> 1.6.7.rc3'
 gem 'geoip', '~> 1.6.1'
 gem 'thor', '~> 0.19.1'
-
-
-group :development do
-end
 
 group :test do
   gem 'rspec', '~> 3.3.0'
