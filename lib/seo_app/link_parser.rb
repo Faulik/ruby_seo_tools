@@ -15,7 +15,7 @@ module SeoApp
       @links = []
       @headers = []
       @geo = {}
-      @date = Time.now.strftime('%Y.%d.%m_%H-%M-%S')
+      @date = Time.now.to_i
     end
 
     def parse!
@@ -35,7 +35,8 @@ module SeoApp
       @geo = retrieve_geo_params
       gather_links! response.body
 
-      SeoApp::Storage.save_report(generate_report, {url: @url, date: @date})
+      SeoApp::Storage.save_report(url: @url, date: @date, links: @links,
+                                  headers: @headers, geo: @geo)
     end
 
     def gather_links!(body)
@@ -47,10 +48,6 @@ module SeoApp
           target: link['target'] || 'None'
         }
       end
-    end
-
-    def generate_report
-      Slim::Template.new('views/reports.slim').render(self)
     end
 
     def retrieve_geo_params

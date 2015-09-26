@@ -1,7 +1,8 @@
 
-Dir[File.join(File.dirname(__FILE__), 'adapters', '*.rb')].each do |file|
-  require file
-end
+require_relative 'adapters/sequel'
+# require_relative 'adapters/files'
+# require_relative 'adapters/datamapper'
+# require_relative 'adapters/puresql'
 
 module SeoApp
   # Storage interface
@@ -32,8 +33,8 @@ module SeoApp
       database.report(_key)
     end
 
-    def self.save_report(_html, _options)
-      database.save_report(_html, _options)
+    def self.save_report(_options)
+      database.save_report(_options)
     end
   end
 
@@ -43,6 +44,6 @@ module SeoApp
 
     def report(_key); end
 
-    def save_report(_html, _options); end
+    def save_report(_options); end
   end
 end

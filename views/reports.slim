@@ -2,8 +2,8 @@
       .row
         .col-xs-10.col-xs-offset-1
           h1 Report for
-            <a href="#{@url}"> #{@url}</a>
-          p Date: #{@date.tr('_', ' ')}
+            <a href="#{report[:url]}"> #{report[:url]}</a>
+          p Date: #{Time.at(report[:created_at]).strftime('%Y.%d.%m %H-%M-%S')}
       br
       .row
         .col-xs-10.col-xs-offset-1
@@ -14,10 +14,10 @@
                 th Name
                 th Value
             tbody
-              - @headers.each do |k, v|
+              - headers.each do |header|
                 tr
-                  td = k
-                  td = v
+                  td = header[:name]
+                  td = header[:value]
       .row
         .col-xs-10.col-xs-offset-1
           h3 Page links
@@ -29,10 +29,10 @@
                 th Rel
                 th Target
             tbody
-              - @links.each do |link|
+              - links.each do |link|
                 tr
                   td = link[:name]
-                  td = link[:url]
+                  td = link[:href]
                   td = link[:rel]
                   td = link[:target]
       .row
@@ -46,7 +46,7 @@
             tbody 
               tr
                 td IP
-                td = @geo['ip'] || 'Not found'
+                td = report[:remote_ip] || 'Not found'
               tr
                 td Country
-                td = @geo['country_name'] || 'Not found'
+                td = report[:country] || 'Not found'

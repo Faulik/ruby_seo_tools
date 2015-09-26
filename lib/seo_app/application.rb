@@ -3,6 +3,7 @@ require 'sinatra/param'
 
 require_relative 'link_parser'
 require_relative 'storage'
+require_relative 'generator'
 
 module SeoApp
   # Main routes
@@ -26,8 +27,27 @@ module SeoApp
 
       @reports = SeoApp::Storage.all_reports
       @error = params[:error] ? params[:error] : nil
-
       slim :index
+    end
+
+    get '/login' do
+      slim :login
+    end
+
+    post '/login' do
+      param :username, String, reqired: true
+      param :password, String, reqired: true
+
+      @username = params[:username]
+      @password = params[:password]
+    end
+
+    post '/register' do
+      param :username, String, reqired: true
+      param :password, String, reqired: true
+
+      @username = params[:username]
+      @password = params[:password]
     end
 
     get '/reports/:key' do

@@ -19,10 +19,11 @@
             th Created at
             th Actions
         rbody
-          - for report in @reports.reverse
+          - for report in @reports
             tr
               td
-                a href="#{report[:site_url]}" = report[:site_url]
-              td = report[:date]
+                a href="#{report[:url]}" = report[:url]
+              td data-sort="#{report[:created_at]}" 
+                = Time.at(report[:created_at]).strftime('%Y.%d.%m %H-%M-%S')
               td
-                a href="/reports/#{report[:key]}" View
+                a href="/reports/#{report[:id]}" View
