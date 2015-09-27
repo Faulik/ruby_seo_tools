@@ -34,7 +34,6 @@ module SeoApp
     end
 
     get '/login' do
-
       redirect '/' if env['warden'].authenticated?
       @error = session['error_message'] ? session['error_message'] : nil
       session['error_message'] = nil
