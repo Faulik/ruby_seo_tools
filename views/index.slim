@@ -9,9 +9,9 @@
         form.form-inline action='/login' method='post'
           .form-group
             p
-              ' Username:
-              u #{@user[:name]}
-              ' with ip:
+              ' Username: 
+              u #{@user[:name]} 
+              '  with ip:  
               u #{@user[:ip]}
             input type='hidden' name='_method' value='delete'
             input.btn.btn-default.btn-xs type='submit' value='logout'
