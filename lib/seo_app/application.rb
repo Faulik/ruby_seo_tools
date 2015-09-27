@@ -34,6 +34,7 @@ module SeoApp
     end
 
     get '/login' do
+
       redirect '/' if env['warden'].authenticated?
       @error = session['error_message'] ? session['error_message'] : nil
       session['error_message'] = nil
@@ -50,6 +51,7 @@ module SeoApp
     end
 
     post '/unauthenticated/?' do
+
       session['error_message'] = env['warden.options'][:message]
       status 401
       redirect '/'
@@ -84,7 +86,7 @@ module SeoApp
 
     post '/links' do
       param :url, String, required: true
-      
+
       redirect '/login' unless env['warden'].authenticated?
       @link = LinkParser.new(params[:url])
 

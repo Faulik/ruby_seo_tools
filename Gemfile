@@ -25,9 +25,7 @@ gem 'nokogiri', '~> 1.6.7.rc3'
 gem 'geoip', '~> 1.6.1'
 gem 'thor', '~> 0.19.1'
 
-group :development do
-  gem 'pry-byebug', '~> 3.2.0'
-end
+gem 'pry-byebug', '~> 3.2.0'
 
 group :test do
   gem 'rspec', '~> 3.3.0'
