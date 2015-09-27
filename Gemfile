@@ -14,7 +14,8 @@ gem 'warden', '~> 1.2.3'
 # DB
 gem 'pg', '~> 0.18.3'
 gem 'sequel', '~> 4.26.0'
-gem 'datamapper', '~> 1.2.0'
+gem 'data_mapper', '~> 1.2.0'
+# gem 'dm-postgres-adapter'
 
 # Needed for cli gem
 gem 'slim', '~> 3.0.6'

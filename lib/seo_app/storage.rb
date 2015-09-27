@@ -1,7 +1,7 @@
 
 require_relative 'adapters/sequel'
 # require_relative 'adapters/files'
-# require_relative 'adapters/datamapper'
+require_relative 'adapters/datamapper'
 # require_relative 'adapters/puresql'
 
 module SeoApp

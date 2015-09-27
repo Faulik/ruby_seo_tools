@@ -1,3 +1,5 @@
+require 'slim'
+
 module SeoApp
   # Generate report for things
   class Generator

@@ -1,81 +1,65 @@
 require 'pg'
-require 'pry-byebug'
+require 'data_mapper'
 
 module SeoApp
   module Adapters
     # Base storage interface
     class DMAdapter
-      attr_accessor :table
-
       def initialize
-        @table = 'html_files'
-        SeoApp.configuration.db_url ? connect_with_url : connect_with_creds
-        create_table if check_table[0]['count'] == '0'
+        _config = SeoApp.configuration
+        @conn = _config.db_url ? DataMapper.setup(:default, _config.db_url) : connect_with_creds
+        require_relative 'dm_models'
+        @conn.finalize
+        @reports = SeoApp::DMModels::Report
+        @links = SeoApp::DMModels::Link
+        @headers = SeoApp::DMModels::Header
       end
 
       def all_reports
-        _reports = []
-        @conn.exec("SELECT * from #{@table}") do |result|
-          result.each do |row|
-            _reports << { site_url: row['url'],
-                          date: row['date'].tr('_', ' '),
-                          key: row['id']
-                        }
-          end
-        end
-        _reports
+        @reports.all
       end
 
       def report(_key)
-        @conn.exec("SELECT html from #{@table} where id = #{_key}")[0]['html']
+        # _report = @reports[_key]
+        # _result = { report: _report, links: _report.links_dataset.all,
+        #             headers: _report.headers_dataset.all }
+        # SeoApp::Generator.to_html(_result)
       end
 
-      def save_report(_html, _options)
-        @conn.exec("INSERT INTO #{@table}
-                    (
-                      url,
-                      date,
-                      html
-                    ) values (
-                      '#{_options[:url]}',
-                      '#{_options[:date]}',
-                      '#{_html}'
-                    )")
+      def save_report(_opts)
+        # @conn.transaction do
+        #   _report = @reports.create(url: _opts[:url].to_s, created_at: _opts[:date],
+        #                             links_count: _opts[:links].count,
+        #                             remote_ip: _opts[:geo]['ip'],
+        #                             country: _opts[:geo]['country_name'])
+
+        #   save_links(_report, _opts[:links])
+        #   save_headers(_report, _opts[:headers])
+        # end
       end
 
-      def check_table
-        @conn.exec("SELECT count(*) from information_schema.tables
-          where table_name = '#{@table}'")
+      def save_links(_report, _links)
+        # _links.each do |link|
+        #   _link = @links.create(name: link[:name], href: link[:url],
+        #                         rel: link[:rel], target: link[:target])
+        #   _report.add_link(_link)
+        # end
       end
 
-      def create_table
-        @conn.exec("CREATE table #{@table}
-          (
-            url text NOT NULL,
-            date text NOT NULL,
-            id SERIAL,
-            html text NOT NULL,
-            CONSTRAINT id PRIMARY KEY (id)
-          ) WITH (
-            OIDS=FALSE
-          );")
-      end
-
-      def connect_with_url
-        @conn = PG.connect(SeoApp.configuration.db_url)
+      def save_headers(_report, _headers)
+        # _headers.each do |k, v|
+        #   _header = @headers.create(name: k, value: v)
+        #   _report.add_header(_header)
+        # end
       end
 
       def connect_with_creds
         _config = SeoApp.configuration
-        @conn = PG.connect(host: _config.db_host,
-                           port: _config.db_port,
-                           dbname: _config.db_name,
-                           user: _config.db_user,
-                           password: _config.db_password)
-      end
-
-      def disconnect
-        @conn.close
+        DataMapper.setup(host: _config.db_host,
+                         port: _config.db_port,
+                         dbname: _config.db_name,
+                         user: _config.db_user,
+                         password: _config.db_password)
       end
     end
   end
