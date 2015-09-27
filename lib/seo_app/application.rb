@@ -10,6 +10,7 @@ module SeoApp
   # Main routes
   class Application < ::Sinatra::Application
     # Configuration
+    set :session_secret, 'goturbo111'
     set :public_folder, -> { SeoApp.root_path.join('public').to_s }
     set :views, -> { SeoApp.root_path.join('views').to_s }
     set :static, true
@@ -26,7 +27,7 @@ module SeoApp
     get '/' do
       param :error, String
 
-      # redirect '/login' unless env['warden'].authenticated?
+      redirect '/login' unless env['warden'].authenticated?
       @reports = SeoApp::Storage.all_reports
       @error = params[:error] ? params[:error] : nil
       @user = env['warden'].user
@@ -79,14 +80,14 @@ module SeoApp
     get '/reports/:key' do
       param :key, String
 
-      # redirect '/login' unless env['warden'].authenticated?
+      redirect '/login' unless env['warden'].authenticated?
       SeoApp::Storage.report(params['key']) || redirect('/?error=NotFound')
     end
 
     post '/links' do
       param :url, String, required: true
 
-      # redirect '/login' unless env['warden'].authenticated?
+      redirect '/login' unless env['warden'].authenticated?
       @link = LinkParser.new(params[:url])
 
       redirect '/?error=NonValidURL' unless @link.parse!
