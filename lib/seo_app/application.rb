@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/param'
+require 'warden'
 
 require_relative 'link_parser'
 require_relative 'storage'
@@ -13,41 +14,67 @@ module SeoApp
     set :views, -> { SeoApp.root_path.join('views').to_s }
     set :static, true
     set :bind, '0.0.0.0'
+    enable :sessions
 
     # Helpers
     helpers Sinatra::Param
 
     # Middleware
-    enable :sessions
     use Rack::CommonLogger
     use Rack::Reloader
 
     get '/' do
       param :error, String
 
+      redirect '/login' unless env['warden'].authenticated?
       @reports = SeoApp::Storage.all_reports
       @error = params[:error] ? params[:error] : nil
+      @user = env['warden'].user
       slim :index
     end
 
     get '/login' do
+      redirect '/' if env['warden'].authenticated?
+
+      @error = session['error_message'] ? session['error_message'] : nil
+      session['error_message'] = nil
+
       slim :login
     end
 
     post '/login' do
-      param :username, String, reqired: true
-      param :password, String, reqired: true
+      param :user['name'], String, reqired: true
+      param :user['password'], String, reqired: true
 
-      @username = params[:username]
-      @password = params[:password]
+      env['warden'].authenticate!
+      redirect '/'
+    end
+
+    post '/unauthenticated/?' do
+      session['error_message'] = env['warden'].message
+
+      status 401
+      redirect '/'
+    end
+
+    delete '/login' do
+      env['warden'].raw_session.inspect
+      env['warden'].logout
+      redirect '/'
+    end
+
+    get '/register' do
+      slim :register
     end
 
     post '/register' do
-      param :username, String, reqired: true
-      param :password, String, reqired: true
+      param :user['name'], String, reqired: true
+      param :user['password'], String, reqired: true
 
-      @username = params[:username]
-      @password = params[:password]
+      SeoApp::SequelModels::User.add_user(name: params['user'][:name],
+                                          password: params['user'][:password],
+                                          ip: request.ip)
+      redirect '/login'
     end
 
     get '/reports/:key' do
@@ -62,6 +89,10 @@ module SeoApp
       @link = LinkParser.new(params[:url])
 
       redirect '/?error=NonValidURL' unless @link.parse!
+      redirect '/'
+    end
+
+    not_found do
       redirect '/'
     end
   end

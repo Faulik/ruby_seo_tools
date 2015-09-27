@@ -12,5 +12,18 @@ module SeoApp
     class Link < Sequel::Model(:links)
       many_to_one :report
     end
+
+    class User < Sequel::Model(:users)
+      def self.authenticate(name, password)
+        user = first(name: name)
+        user if user && user.password == password
+      end
+
+      def self.add_user(_opts)
+        create(name: _opts[:name],
+               password: _opts[:password],
+               ip: _opts[:ip])
+      end
+    end
   end
 end

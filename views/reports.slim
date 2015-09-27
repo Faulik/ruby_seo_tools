@@ -1,52 +1,53 @@
 .container-fluid
-      .row
-        .col-xs-10.col-xs-offset-1
-          h1 Report for
-            <a href="#{report[:url]}"> #{report[:url]}</a>
-          p Date: #{Time.at(report[:created_at]).strftime('%Y.%d.%m %H-%M-%S')}
-      br
-      .row
-        .col-xs-10.col-xs-offset-1
-          h3 Response headers
-          table.table.table-hover.table-bordered.sort-table
-            thead
-              tr
-                th Name
-                th Value
-            tbody
-              - headers.each do |header|
-                tr
-                  td = header[:name]
-                  td = header[:value]
-      .row
-        .col-xs-10.col-xs-offset-1
-          h3 Page links
-          table.table.table-hover.table-bordered.sort-table
-            thead
-              tr
-                th Name
-                th Url
-                th Rel
-                th Target
-            tbody
-              - links.each do |link|
-                tr
-                  td = link[:name]
-                  td = link[:href]
-                  td = link[:rel]
-                  td = link[:target]
-      .row
-        .col-xs-10.col-xs-offset-1
-          h3 Additional info
-          table.table.table-hover.table-bordered.sort-table
-            thead
-              tr
-                th Name
-                th Value
-            tbody 
-              tr
-                td IP
-                td = report[:remote_ip] || 'Not found'
-              tr
-                td Country
-                td = report[:country] || 'Not found'
+  .row
+    .col-xs-10.col-xs-offset-1
+      h1 Report for
+        <a href="#{report[:url]}"> #{report[:url]}</a>
+      p Date: #{Time.at(report[:created_at]).strftime('%Y.%d.%m %H-%M-%S')}
+      a href='/' Back to all
+  br
+  .row
+    .col-xs-10.col-xs-offset-1
+      h3 Response headers
+      table.table.table-hover.table-bordered.sort-table
+        thead
+          tr
+            th Name
+            th Value
+        tbody
+          - headers.each do |header|
+            tr
+              td = header[:name]
+              td = header[:value]
+  .row
+    .col-xs-10.col-xs-offset-1
+      h3 Page links
+      table.table.table-hover.table-bordered.sort-table
+        thead
+          tr
+            th Name
+            th Url
+            th Rel
+            th Target
+        tbody
+          - links.each do |link|
+            tr
+              td = link[:name]
+              td = link[:href]
+              td = link[:rel]
+              td = link[:target]
+  .row
+    .col-xs-10.col-xs-offset-1
+      h3 Additional info
+      table.table.table-hover.table-bordered.sort-table
+        thead
+          tr
+            th Name
+            th Value
+        tbody
+          tr
+            td IP
+            td = report[:remote_ip] || 'Not found'
+          tr
+            td Country
+            td = report[:country] || 'Not found'

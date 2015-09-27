@@ -27,7 +27,7 @@ Sequel.migration do
 
     create_table(:users) do
       primary_key :id
-      column :username, 'text', null: false
+      column :name, 'text', null: false
       column :password, 'text', null: false
       column :ip, 'cidr', null: false
     end
