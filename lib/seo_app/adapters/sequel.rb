@@ -39,7 +39,7 @@ module SeoApp
 
       def save_links(_report, _links)
         _links.each do |link|
-          _link = @links.create(name: link[:name], href: link[:url],
+          _link = @links.create(name: link[:name], href: link[:href],
                                 rel: link[:rel], target: link[:target])
           _report.add_link(_link)
         end

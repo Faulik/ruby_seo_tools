@@ -10,7 +10,7 @@ SeoApp.configure do |config|
 end
 
 # Main class to serve thor
-class Seo_app < Thor
+class ConsoleApp < Thor
   desc 'parse url', 'Creates report html in current directory'
   method_option :path, aliases: '-p', desc: 'Supply with path to look for'
   def parse(_url)
@@ -42,4 +42,4 @@ class Seo_app < Thor
   end
 end
 
-Seo_app.start
+ConsoleApp.start

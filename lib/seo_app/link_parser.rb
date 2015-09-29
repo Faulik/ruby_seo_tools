@@ -43,7 +43,7 @@ module SeoApp
       ::Nokogiri::HTML(body).css('a').each do |link|
         @links << {
           name: link.text || 'None',
-          url: link['href'] || 'None',
+          href: link['url'] || 'None',
           rel: link['rel'] || 'None',
           target: link['target'] || 'None'
         }
